@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+todos.dbnode_modules
+.next
+todos.db
