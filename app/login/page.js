@@ -38,6 +38,10 @@ export default function LoginPage() {
     <main className="page">
       <div className="sheet">
         <header className="masthead">
+          <div className="brand">
+              <img src="/logo.png" alt="" />
+              <span>Checklist</span>
+          </div>
           <h1>Log in</h1>
           <p>Welcome back.</p>
         </header>

@@ -38,6 +38,10 @@ export default function RegisterPage() {
     <main className="page">
       <div className="sheet">
         <header className="masthead">
+          <div className="brand">
+              <img src="/logo.png" alt="" />
+              <span>Checklist</span>
+          </div>
           <h1>Register</h1>
           <p>Create an account to start your list.</p>
         </header>

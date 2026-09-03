@@ -1,12 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz@0,6..72;1,6..72&family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 :root {
-  --paper: #f7f4ee;
-  --ink: #23241f;
-  --ink-soft: #5a5c52;
-  --rule: #cfc9ba;
-  --mark: #b3542e;
-  --mark-soft: #eadfd2;
+  --bg: #0b0d14;
+  --panel: #12151f;
+  --ink: #eef0f6;
+  --ink-soft: #8b90a3;
+  --rule: #232735;
+  --cyan: #4fd1e8;
+  --violet: #9c4de0;
+  --gradient: linear-gradient(90deg, var(--cyan), var(--violet));
+  --danger: #e0527a;
 }
 
 * {
@@ -20,9 +23,9 @@ body {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Space Grotesk", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -31,25 +34,56 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4.5rem 1.5rem 3rem;
+  padding: 3.5rem 1.5rem 3rem;
+  background:
+    radial-gradient(600px 300px at 15% -5%, rgba(79, 209, 232, 0.12), transparent),
+    radial-gradient(600px 300px at 85% 0%, rgba(156, 77, 224, 0.12), transparent);
 }
 
 .sheet {
   width: 100%;
   max-width: 30rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 2rem 1.75rem 1.75rem;
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
 }
 
 .masthead {
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+}
+
+.brand img {
+  width: 28px;
+  height: 28px;
+}
+
+.brand span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .masthead h1 {
-  font-family: "Newsreader", Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 2.75rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 2.25rem;
   margin: 0 0 0.35rem;
-  line-height: 1;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .masthead p {
@@ -61,8 +95,10 @@ body {
 .entry-form {
   display: flex;
   gap: 0.6rem;
-  border-bottom: 1.5px solid var(--ink);
-  padding-bottom: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
   margin-bottom: 1.75rem;
 }
 
@@ -71,10 +107,10 @@ body {
   border: none;
   background: transparent;
   font-family: inherit;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--ink);
   outline: none;
-  padding: 0.2rem 0;
+  padding: 0.65rem 0;
 }
 
 .entry-form input::placeholder {
@@ -82,25 +118,29 @@ body {
 }
 
 .entry-form button {
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+  border: none;
+  border-radius: 8px;
+  background: var(--gradient);
+  color: #0b0d14;
   font-family: inherit;
   font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
+  font-weight: 700;
+  padding: 0.6rem 1.15rem;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: opacity 0.15s ease, transform 0.1s ease;
 }
 
 .entry-form button:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: default;
 }
 
 .entry-form button:not(:disabled):hover {
-  background: var(--paper);
-  color: var(--ink);
+  opacity: 0.88;
+}
+
+.entry-form button:not(:disabled):active {
+  transform: scale(0.97);
 }
 
 .list {
@@ -113,7 +153,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  padding: 0.9rem 0;
+  padding: 0.85rem 0;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -121,13 +161,17 @@ body {
   padding-top: 0;
 }
 
+.item:last-child {
+  border-bottom: none;
+}
+
 .checkbox {
   flex-shrink: 0;
-  width: 1.15rem;
-  height: 1.15rem;
-  margin-top: 0.18rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.15rem;
   border: 1.5px solid var(--ink-soft);
-  border-radius: 2px;
+  border-radius: 6px;
   background: transparent;
   cursor: pointer;
   display: flex;
@@ -138,26 +182,26 @@ body {
 }
 
 .checkbox:hover {
-  border-color: var(--mark);
+  border-color: var(--cyan);
 }
 
 .checkbox.checked {
-  background: var(--mark);
-  border-color: var(--mark);
+  background: var(--gradient);
+  border-color: transparent;
 }
 
 .checkbox.checked::after {
   content: "";
   width: 0.55rem;
   height: 0.3rem;
-  border-left: 2px solid var(--paper);
-  border-bottom: 2px solid var(--paper);
+  border-left: 2px solid #0b0d14;
+  border-bottom: 2px solid #0b0d14;
   transform: rotate(-45deg) translateY(-1px);
 }
 
 .task-text {
   flex: 1;
-  font-size: 1.02rem;
+  font-size: 1rem;
   line-height: 1.4;
   color: var(--ink);
   word-break: break-word;
@@ -187,13 +231,14 @@ body {
 }
 
 .remove:hover {
-  color: var(--mark);
+  color: var(--danger);
 }
 
 .empty {
   color: var(--ink-soft);
   font-size: 0.95rem;
   padding: 1.5rem 0;
+  text-align: center;
 }
 
 .count {
@@ -205,56 +250,73 @@ body {
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
 .auth-form input {
-  border: none;
-  border-bottom: 1.5px solid var(--rule);
-  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg);
   font-family: inherit;
   font-size: 1rem;
   color: var(--ink);
-  padding: 0.5rem 0.1rem;
+  padding: 0.7rem 0.85rem;
   outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.auth-form input::placeholder {
+  color: var(--ink-soft);
 }
 
 .auth-form input:focus {
-  border-bottom-color: var(--ink);
+  border-color: var(--cyan);
 }
 
 .auth-form button {
-  margin-top: 0.5rem;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--paper);
+  margin-top: 0.4rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--gradient);
+  color: #0b0d14;
   font-family: inherit;
   font-size: 0.95rem;
-  font-weight: 500;
-  padding: 0.65rem 1rem;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
   cursor: pointer;
+  transition: opacity 0.15s ease;
 }
 
 .auth-form button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: default;
 }
 
+.auth-form button:not(:disabled):hover {
+  opacity: 0.88;
+}
+
 .auth-error {
-  color: var(--mark);
-  font-size: 0.9rem;
+  color: var(--danger);
+  font-size: 0.88rem;
   margin: 0;
 }
 
 .auth-switch {
-  margin-top: 1.25rem;
+  margin-top: 1.4rem;
   font-size: 0.9rem;
   color: var(--ink-soft);
+  text-align: center;
 }
 
 .auth-switch a {
-  color: var(--ink);
+  color: var(--cyan);
   font-weight: 500;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
 }
 
 .masthead-row {
@@ -267,22 +329,24 @@ body {
 .signout {
   flex-shrink: 0;
   border: 1px solid var(--rule);
+  border-radius: 8px;
   background: transparent;
   color: var(--ink-soft);
   font-family: inherit;
   font-size: 0.8rem;
-  padding: 0.4rem 0.75rem;
+  padding: 0.45rem 0.85rem;
   cursor: pointer;
   margin-top: 0.3rem;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .signout:hover {
-  border-color: var(--ink);
+  border-color: var(--cyan);
   color: var(--ink);
 }
 
 .signed-in-as {
-  margin: 0.6rem 0 0;
+  margin: 0.7rem 0 0;
   font-size: 0.8rem;
   color: var(--ink-soft);
 }

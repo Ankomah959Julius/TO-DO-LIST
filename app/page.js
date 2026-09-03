@@ -84,6 +84,10 @@ export default function Home() {
       <div className="sheet">
         <header className="masthead">
           <div className="masthead-row">
+            <div className="brand">
+                <img src="/logo.png" alt="" />
+                <span>Checklist</span>
+          </div>
             <div>
               <h1>Checklist</h1>
               <p>Add what needs doing. Cross it off when it&rsquo;s done.</p>
