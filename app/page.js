@@ -1,19 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+export const dynamic = "force-dynamic";
+
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [todos, setTodos] = useState([]);
   const [taskInput, setTaskInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchTodos();
+    }
+  }, [status]);
 
   async function fetchTodos() {
     const res = await fetch("/api/todos");
+    if (!res.ok) {
+      setLoading(false);
+      return;
+    }
     const data = await res.json();
     setTodos(data);
     setLoading(false);
@@ -47,14 +67,37 @@ export default function Home() {
     await fetch(`/api/todos/${id}`, { method: "DELETE" });
   }
 
+  if (status === "loading" || status === "unauthenticated") {
+    return (
+      <main className="page">
+        <div className="sheet">
+          <p className="empty">Loading&hellip;</p>
+        </div>
+      </main>
+    );
+  }
+
   const remaining = todos.filter((t) => !t.completed).length;
 
   return (
     <main className="page">
       <div className="sheet">
         <header className="masthead">
-          <h1>Checklist</h1>
-          <p>Add what needs doing. Cross it off when it&rsquo;s done.</p>
+          <div className="masthead-row">
+            <div>
+              <h1>Checklist</h1>
+              <p>Add what needs doing. Cross it off when it&rsquo;s done.</p>
+            </div>
+            <button
+              className="signout"
+              onClick={() => signOut({ callbackUrl: "/login" })}
+            >
+              Sign out
+            </button>
+          </div>
+          {session?.user?.name && (
+            <p className="signed-in-as">Signed in as {session.user.name}</p>
+          )}
         </header>
 
         <form className="entry-form" onSubmit={addTask}>

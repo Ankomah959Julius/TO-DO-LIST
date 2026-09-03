@@ -20,11 +20,12 @@ export async function POST(request) {
       );
     }
 
-    const existingUser = db
-      .prepare("SELECT id FROM users WHERE email = ?")
-      .get(email);
+    const existing = await db.execute({
+      sql: "SELECT id FROM users WHERE email = ?",
+      args: [email],
+    });
 
-    if (existingUser) {
+    if (existing.rows[0]) {
       return NextResponse.json(
         { error: "A user with this email already exists" },
         { status: 409 }
@@ -33,26 +34,23 @@ export async function POST(request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const result = db
-      .prepare(
-        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
-      )
-      .run(name, email, hashedPassword);
+    const result = await db.execute({
+      sql: "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+      args: [name, email, hashedPassword],
+    });
 
     return NextResponse.json(
       {
         message: "User registered successfully",
-        userId: result.lastInsertRowid,
+        userId: result.lastInsertRowid.toString(),
       },
       { status: 201 }
     );
   } catch (error) {
     console.error("Registration error:", error);
-
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
     );
   }
 }
-
