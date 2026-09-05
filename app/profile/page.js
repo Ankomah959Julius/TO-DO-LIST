@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTheme } from "../theme-provider";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,7 @@ export default function ProfilePage() {
   const { data: session, status, update } = useSession();
   const router = useRouter();
   const fileInputRef = useRef(null);
+  const { theme, setTheme } = useTheme();
 
   const [name, setName] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
@@ -183,6 +185,36 @@ export default function ProfilePage() {
               {saving ? "Saving..." : "Save changes"}
             </button>
           </form>
+        </div>
+
+        <div className="profile-card appearance-section">
+          <span className="appearance-label">Appearance</span>
+          <div className="theme-toggle">
+            <button
+              type="button"
+              className={`theme-toggle-btn ${theme === "light" ? "active" : ""}`}
+              onClick={() => setTheme("light")}
+            >
+              <span className="theme-icon">&#9728;&#65039;</span>
+              Light
+            </button>
+            <button
+              type="button"
+              className={`theme-toggle-btn ${theme === "dark" ? "active" : ""}`}
+              onClick={() => setTheme("dark")}
+            >
+              <span className="theme-icon">&#127769;</span>
+              Dark
+            </button>
+            <button
+              type="button"
+              className={`theme-toggle-btn ${theme === "system" ? "active" : ""}`}
+              onClick={() => setTheme("system")}
+            >
+              <span className="theme-icon">&#128421;&#65039;</span>
+              System
+            </button>
+          </div>
         </div>
 
         <Link href="/" className="cancel-link">
