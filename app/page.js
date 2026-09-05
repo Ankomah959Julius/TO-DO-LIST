@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Footer from "./footer";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,7 @@ function WelcomeScreen() {
           Let&rsquo;s start &#8594;
         </button>
       </div>
+      <Footer />
     </main>
   );
 }
@@ -183,6 +185,13 @@ export default function Home() {
                 >
                   &#9881;&#65039; Profile settings
                 </Link>
+                <Link
+                  href="/about"
+                  className="profile-settings-link"
+                  onClick={() => setProfileOpen(false)}
+                >
+                  &#8505;&#65039; About us
+                </Link>
                 <div className="profile-menu-divider" />
                 <button
                   className="profile-signout"
@@ -313,6 +322,7 @@ export default function Home() {
           </ul>
         )}
       </div>
+      <Footer />
     </main>
   );
 }

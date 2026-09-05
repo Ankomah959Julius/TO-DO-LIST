@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Footer from "../footer";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -36,11 +37,11 @@ export default function RegisterPage() {
 
   return (
     <main className="page">
-      <div className="sheet">
+      <div className="sheet auth-page-wrap">
         <header className="masthead">
           <div className="brand">
-              <img src="/logo.png" alt="" />
-              <span>Checklist</span>
+            <img src="/logo.png" alt="" />
+            <span>Checklist</span>
           </div>
           <h1>Register</h1>
           <p>Create an account to start your list.</p>
@@ -78,6 +79,7 @@ export default function RegisterPage() {
           Already have an account? <Link href="/login">Log in</Link>
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Footer from "../footer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -36,11 +37,11 @@ export default function LoginPage() {
 
   return (
     <main className="page">
-      <div className="sheet">
+      <div className="sheet auth-page-wrap">
         <header className="masthead">
           <div className="brand">
-              <img src="/logo.png" alt="" />
-              <span>Checklist</span>
+            <img src="/logo.png" alt="" />
+            <span>Checklist</span>
           </div>
           <h1>Log in</h1>
           <p>Welcome back.</p>
@@ -71,6 +72,7 @@ export default function LoginPage() {
           Don&rsquo;t have an account? <Link href="/register">Register</Link>
         </p>
       </div>
+      <Footer />
     </main>
   );
 }

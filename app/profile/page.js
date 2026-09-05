@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTheme } from "../theme-provider";
+import Footer from "../footer";
 
 export const dynamic = "force-dynamic";
 
@@ -221,6 +222,7 @@ export default function ProfilePage() {
           Cancel
         </Link>
       </div>
+      <Footer />
     </main>
   );
 }
